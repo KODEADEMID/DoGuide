@@ -20,14 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".FormActivity" />
-
-        <activity
-            android:name=".MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".MainActivity" />
 
-
+        <activity android:name=".NavigationMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".SQLiteActivity" />
     </application>
 
 </manifest>

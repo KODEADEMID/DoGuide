@@ -1,25 +1,20 @@
 package kodeA.doguide
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_form.*
-import java.lang.System.exit
 
 class FormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form)
 
-
-        //var Animal: InfoAnimal = InfoAnimal(true)
         var nicknameED = findViewById<EditText>(R.id.answer_1)
-        //nicknameED.text.toString().also { Animal.breed = it }
-        //true.also { Animal.check = it }
+
 
 
         val listBreed = arrayOf("Хаски", "Корги", "Бигль")
@@ -51,14 +46,12 @@ class FormActivity : AppCompatActivity() {
             if (nicknameED.text.toString().isNullOrEmpty()) {
                 Toast.makeText(this, "Пожалуйста, введите кличку", Toast.LENGTH_LONG).show()
             } else {
-            var nickname = nicknameED.text.toString()
-                //Animal.nickname= nickname
-                val intent = Intent(this@FormActivity, MenuActivity::class.java)
-              intent.putExtra("Nickname", nickname)
+                val intent = Intent(this@FormActivity, NavigationMenuActivity::class.java)
                 startActivity(intent)
+
             }
 
 
-    }
+        }
     }
 }
