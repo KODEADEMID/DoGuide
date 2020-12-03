@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".ReminderBroadcast"
+            ></receiver>
 
+        <activity android:name=".infoAnimalActivity" />
+        <activity android:name=".Simulator" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -20,12 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".FormActivity" />
-        <activity android:name=".MainActivity" />
 
-        <activity android:name=".NavigationMenuActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".SQLiteActivity" />
+        <activity
+            android:name=".NavigationMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

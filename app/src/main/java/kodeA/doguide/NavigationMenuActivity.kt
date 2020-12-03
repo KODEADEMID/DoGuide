@@ -1,15 +1,11 @@
 package kodeA.doguide
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.app.DialogCompat
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_navigation_menu.*
@@ -20,7 +16,6 @@ class NavigationMenuActivity : AppCompatActivity(), NavigationView.OnNavigationI
     lateinit var calender: calender
     lateinit var simul: Simul
     lateinit var training: Training
-    lateinit var animal: Animal
     lateinit var home: Home
     lateinit var setting: Setting
 
@@ -56,20 +51,21 @@ class NavigationMenuActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         when(menuItem.itemId){
             R.id.nav_home -> {
+
+
+
                 home = Home()
                 supportFragmentManager.beginTransaction().replace(R.id.frame_layout, home).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
             }
             R.id.nav_info_animal -> {
-                animal = Animal()
-                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, animal).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
+                startActivity( Intent(this, infoAnimalActivity::class.java))
             }
             R.id.nav_calender-> {
                 calender = calender()
                 supportFragmentManager.beginTransaction().replace(R.id.frame_layout, calender).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
             }
             R.id.nav_simulator -> {
-                simul = Simul()
-                supportFragmentManager.beginTransaction().replace(R.id.frame_layout, simul).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
+                startActivity( Intent(this, Simulator::class.java))
             }
             R.id.nav_training -> {
                training  = Training()
