@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import kodeA.doguide.Anketa.StartAnketaMainInfoActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     private val SPLASH_TIME: Long = 2500
@@ -18,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
         if (firstTime == "No") {
 
             Handler().postDelayed({
-                startActivity(Intent(this, FormActivity::class.java))
+                startActivity(Intent(this, StartAnketaMainInfoActivity::class.java))
                 finish()
             }, SPLASH_TIME)
 

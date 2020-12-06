@@ -51,9 +51,7 @@ class NavigationMenuActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         when(menuItem.itemId){
             R.id.nav_home -> {
-
-
-
+                
                 home = Home()
                 supportFragmentManager.beginTransaction().replace(R.id.frame_layout, home).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
             }

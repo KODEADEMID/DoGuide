@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver
-            android:name=".ReminderBroadcast"
-            ></receiver>
+        <activity android:name=".Anketa.AnketaHealthActivity"></activity>
+        <activity android:name=".Anketa.EndAnketaCharacterActivity" />
+        <activity android:name=".Anketa.MiddleAnketaCharacterActivity" />
+        <activity android:name=".Anketa.StartAnketaMainInfoActivity" />
+
+        <receiver android:name=".ReminderBroadcast" />
 
         <activity android:name=".infoAnimalActivity" />
         <activity android:name=".Simulator" />
@@ -25,11 +28,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".FormActivity" />
-
         <activity
             android:name=".NavigationMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>
