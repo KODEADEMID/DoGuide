@@ -60,7 +60,7 @@ class NavigationMenuActivity : AppCompatActivity(), NavigationView.OnNavigationI
             R.id.nav_info_animal -> {
                 startActivity( Intent(this, infoAnimalActivity::class.java))
             }
-            R.id.nav_calender-> {
+            R.id.nav_dop_info-> {
                 calender = calender()
                 supportFragmentManager.beginTransaction().replace(R.id.frame_layout, calender).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).commit()
             }

@@ -1,38 +1,38 @@
 package kodeA.doguide
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Bundle
-import android.os.PersistableBundle
+import android.content.SharedPreferences
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.*
 import android.view.View
-import android.widget.Button
-import android.widget.Toast
-import android.widget.ToggleButton
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.graphics.createBitmap
 import kotlinx.android.synthetic.main.activity_simulator.*
-import java.text.SimpleDateFormat
+import java.security.acl.NotOwnerException
 import java.util.*
+import kotlin.system.exitProcess
 
 
-//import java.util.*
+class Simulator : AppCompatActivity()  {
+
+    private var mCountDownTimer: CountDownTimer? = null
+    private var mTimerRunning = false
+    private var mTimeLeftInMillis: Long = 0
+    private var mEndTime: Long = 0
+    private var mTextViewCountDown: TextView? = null
 
 
-class Simulator : AppCompatActivity() {
-
-
-    private val timeNow = SimpleDateFormat("HH:mm:ss")
-    private val dateNow = SimpleDateFormat("dd")
-
-
-
-
-    // lateinit var notificationManager: NotificationManager
-    // lateinit var notificationChannel : NotificationChannel
-    // lateinit var builder: Notification.Builder
-    // private val channelId = "kodeA.doguide"
-    // private val description = "Test Notification"
-
-
+    private val channelId = "Message"
+    private var notificationID =1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +41,7 @@ class Simulator : AppCompatActivity() {
 
 
         val toggle: ToggleButton = findViewById(R.id.btn_tgl)
+        mTextViewCountDown = findViewById(R.id.text_text)
 
         val sharedPrefs = getSharedPreferences("kodeA.doguide", MODE_PRIVATE)
         toggle.isChecked = sharedPrefs.getBoolean("NameOfThingToSave", true)
@@ -53,186 +54,45 @@ class Simulator : AppCompatActivity() {
         )
         result_disease.text = sharedPrefs.getString("Disease", result_disease.text.toString())
 
+       result_health.text = "100"
+       val editor1 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+        editor1.putString("Health", result_health.text.toString())
+        editor1.commit()
+        result_want_to_walk.text = "100"
+        val editor2 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+        editor2.putString("Health", result_want_to_walk.text.toString())
+        editor2.commit()
+        result_disease.text = "100"
+        val editor3 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+        editor3.putString("Health", result_disease.text.toString())
+        editor3.commit()
+        result_mood.text = "100"
+        val editor4 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+        editor4.putString("Health", result_mood.text.toString())
+        editor4.commit()
+
         findViewById<Button>(R.id.btn_tgl).setOnClickListener {
             if (toggle.isChecked() == true) {
                 val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                 editor.putBoolean("NameOfThingToSave", true)
                 editor.commit()
-               val refreshActivity = intent
+                //intentOut()
+              val refreshActivity = intent
                finish()
                startActivity(refreshActivity)
+
             } else {
                 val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                 editor.putBoolean("NameOfThingToSave", false)
                 editor.commit()
-
                 val refreshActivity = intent
                 finish()
                 startActivity(refreshActivity)
-                /* val intent = Intent(this, Simulator::class.java)
-                startActivity(intent)*/
-
             }
-
         }
 
 
-       /* val intent = Intent(this, ReminderBroadcast::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        val timeAtButtonClick = System.currentTimeMillis()
-
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.SECOND, 10)
-        val time = calendar.timeInMillis
-
-        manager.setRepeating(
-            AlarmManager.RTC_WAKEUP, time,
-            AlarmManager.INTERVAL_HOUR, pendingIntent
-        )
-*/
-        createNotificationChannel()
-        val button = findViewById<Button>(R.id.btn_view)
-
-        button.setOnClickListener { v: View? ->
-            Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ReminderBroadcast::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
-            val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-            val timeAtButtonClick = System.currentTimeMillis()
-            var tenSecondsInMillis = (1000 * 10).toLong()
-            alarmManager[AlarmManager.RTC_WAKEUP, timeAtButtonClick + tenSecondsInMillis] =
-                pendingIntent
-           /* if(){
-                var count_2 = Integer.parseInt(result_health.text.toString()) - 25
-                result_health.text = count_2.toString()
-                val editor2 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
-                editor2.putString("Health", result_health.text.toString())
-                editor2.commit()
-
-            }*/
-        }
-
-
-
-
-        //notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-/*
-                    val intent = Intent(this, Simulator::class.java)
-                    val pendingIntent = PendingIntent.getActivity(
-                        this,
-                        0,
-                        intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-
-
-                   /* val contView = RemoteViews(packageName, R.layout.notification_layout)
-                    contView.setTextViewText(R.id.tv_title, "Code Android")
-                    contView.setTextViewText(R.id.tv_content, "Text notification")*/
-
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        notificationChannel =
-                            NotificationChannel(
-                                channelId,
-                                description,
-                                NotificationManager.IMPORTANCE_HIGH
-                            )
-                        notificationChannel.enableLights(true)
-                        notificationChannel.lightColor=Color.GREEN
-                        notificationChannel.enableVibration(false)
-                        notificationManager.createNotificationChannel(notificationChannel)
-
-                        builder = Notification.Builder(this, channelId).setContent(contView).setSmallIcon(
-                            R.drawable.ic_launcher_round
-                        ).setLargeIcon(
-                            BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher)
-                        ).setContentIntent(pendingIntent)
-                    }else{
-                        builder = Notification.Builder(this).setContent(contView).setSmallIcon(R.drawable.ic_launcher_round).setLargeIcon(
-                            BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher)
-                        ).setContentIntent(pendingIntent)
-                    }
-                    notificationManager.notify(1234, builder.build())
-
-                }*/
-
-
-
-
-
-       /* if (!toggle.isChecked()) {
-
-            findViewById<Button>(R.id.btn_enjoy).setOnClickListener {
-                if (Integer.parseInt(result_mood.text.toString()) >= 100) {
-                    Toast.makeText(this, "Питомец сытый", Toast.LENGTH_SHORT).show()
-                } else {
-                    var count = Integer.parseInt(result_mood.text.toString()) + 25
-                    result_mood.text = count.toString()
-                    val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
-                    editor.putString("Enjoy", result_mood.text.toString())
-                    editor.commit()
-                    //var healthNow = result_health.text.toString()
-
-
-                }
-            }
-
-        }*/
-
-        // val timer = object: CountDownTimer(20000, 1000) {
-        //     override fun onTick(millisUntilFinished: Long) {
-        //         text_view.setText("seconds remaining: " + millisUntilFinished / 1000);
-
-        //     }
-
-        //     override fun onFinish() {
-        //         var count_3 = Integer.parseInt(result_mood.text.toString()) - 25
-        //         result_mood.text=count_3.toString()
-        //         val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
-        //         editor.putString("Enjoy", result_mood.text.toString())
-        //         editor.commit()
-        //         text_view.text=""
-
-        //     }
-        // }
-        // timer.start()
-
-
-        if (!toggle.isChecked()) { //
-
-            //
-            if (timeNow.format(Date()) == "10:45:00" || timeNow.format(Date()) == "15:00:00" || timeNow.format(
-                    Date()
-                ) == "22:00:00"
-            ) {
-
-
-                var count_2 = Integer.parseInt(result_want_to_walk.text.toString()) - 25
-                result_want_to_walk.text = count_2.toString()
-
-
-                val editor2 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
-                editor2.putString("Walk", result_want_to_walk.text.toString())
-                editor2.commit()
-
-            }
-
-
-            //ВЫЧИТАНИЕ
-            if (timeNow.format(Date()) == "13:00:00" && (dateNow.format(Date()) == "06" || dateNow.format(
-                    Date()
-                ) == "11" || dateNow.format(Date()) == "16" || dateNow.format(Date()) == "21" || dateNow.format(
-                    Date()
-                ) == "26" || dateNow.format(Date()) == "01")
-            ) {
-                var count_1 = Integer.parseInt(result_disease.text.toString()) - 25
-                result_disease.text = count_1.toString()
-
-                val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
-                editor.putString("Disease", result_disease.text.toString())
-                editor.commit()
-            }
+        if (!toggle.isChecked()) {
 
             //СЫТОСТЬ
 
@@ -262,9 +122,8 @@ class Simulator : AppCompatActivity() {
                 }
             }
 
-            //ПРОГУЛКА
-
-            findViewById<Button>(R.id.btn_walk).setOnClickListener {
+                //ПРОГУЛКА
+            findViewById<Button>(R.id.btn_walk).setOnClickListener(View.OnClickListener {
                 if (Integer.parseInt(result_want_to_walk.text.toString()) >= 100) {
                     Toast.makeText(this, "Гулять не хочет", Toast.LENGTH_SHORT).show()
                 } else {
@@ -273,72 +132,636 @@ class Simulator : AppCompatActivity() {
                     val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                     editor.putString("Walk", result_want_to_walk.text.toString())
                     editor.commit()
-                    //var healthNow = result_health.text.toString()
                 }
-            }
+            })
 
             //НАСТРОЕНИЕ
 
             findViewById<Button>(R.id.btn_enjoy).setOnClickListener {
 
-
                 if (Integer.parseInt(result_mood.text.toString()) >= 100) {
                     Toast.makeText(this, "Настроение есть!", Toast.LENGTH_SHORT).show()
                 } else {
-
                     var count = Integer.parseInt(result_mood.text.toString()) + 25
                     result_mood.text = count.toString()
-
                     val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                     editor.putString("Enjoy", result_mood.text.toString())
                     editor.commit()
 
-                    //var healthNow = result_health.text.toString()
                 }
 
             }
 
 
-            //СМЕРТЬ
-
-            if (Integer.parseInt(result_health.text.toString()) == 0 || Integer.parseInt(result_mood.text.toString()) == 0 ||
-                Integer.parseInt(result_disease.text.toString()) == 0 || Integer.parseInt(
-                    result_want_to_walk.text.toString()
-                ) == 0
-            ) {
-                val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
-                editor.putBoolean("NameOfThingToSave", false)
-                editor.commit()
-
+            //ТАЙМЕР ПРОГУЛКИ
+            if (!mTimerRunning) {
+                startTimerWalk()
+            }
+            //ТАЙМЕР ЕДЫ
+            if (!mTimerRunning) {
+                startTimerFood()
+            }
+            //ТАЙМЕР НАСТРОЕНИЯ
+            if (!mTimerRunning) {
+                startTimerMood()
+            }
+            //ТАЙМЕР ЛЕЧЕНИЯ
+            if (!mTimerRunning) {
+                startTimerDoctor()
             }
         }
+        else{
+            findViewById<Button>(R.id.btn_enjoy).setOnClickListener {
+            Toast.makeText(this, "Чтобы начать, включите симулятор", Toast.LENGTH_LONG).show()
+            }
+            findViewById<Button>(R.id.btn_walk).setOnClickListener {
+                Toast.makeText(this, "Чтобы начать, включите симулятор", Toast.LENGTH_LONG).show()
+            }
+            findViewById<Button>(R.id.btn_feed).setOnClickListener{
+                Toast.makeText(this, "Чтобы начать, включите симулятор", Toast.LENGTH_LONG).show()
+            }
+            findViewById<Button>(R.id.btn_doctor).setOnClickListener{
+                Toast.makeText(this, "Чтобы начать, включите симулятор", Toast.LENGTH_LONG).show()
+            }
 
-        fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-            super.onSaveInstanceState(outState, outPersistentState)
 
-
-        }
-
-        fun onRestoreInstanceState(savedInstanceState: Bundle) {
-
-            super.onRestoreInstanceState(savedInstanceState)
         }
 
 
     }
 
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name: CharSequence = "LemubitReminderChannel"
-            val description = "Channel for Lemubit Reminder"
-            val importance: Int =NotificationManager.IMPORTANCE_DEFAULT
+    private fun startTimerWalk() {
+        if(btn_tgl.isChecked()){
+            mTimeLeftInMillis=0
+            mTimerRunning = true
+            return
+        }
+        mTimeLeftInMillis= 30000
+        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis
+        mCountDownTimer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
 
-            var channel = NotificationChannel("notifyLemubit", name, importance)
-            channel.setDescription(description)
-            val notificationManager = getSystemService(NotificationManager::class.java)
+                if (result_health.text == "0" || result_mood.text == "0" ||
+                    result_disease.text == "0" || result_want_to_walk.text== "0"
+                ) {
+
+                    //System.exit(0)
+
+                    val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                    editor.putBoolean("NameOfThingToSave", true)
+                    editor.commit()
+                    text_text.text = "Питомец скончался"
+                    createNotificationChannel()
+                    sendNotificationDeath()
+                    mTimeLeftInMillis = 0
+                    // mTimerRunning = true
+                    onStop()
+                  //  finish()
+                    val refreshActivity = intent
+                    finish()
+                    startActivity(refreshActivity)
+                    return
+
+                }
+
+                if(btn_tgl.isChecked()){
+                    mTimeLeftInMillis=0
+                    mTimerRunning = true
+                    return
+                }
+                mTimeLeftInMillis = millisUntilFinished
+                updateCountDownText()
+            }
+
+            override fun onFinish() {
+                if(btn_tgl.isChecked()){
+                    mTimeLeftInMillis=0
+                    mTimerRunning = true
+                    return
+                }
+                else{
+                mTimerRunning = false
+                var count_2 = Integer.parseInt(result_want_to_walk.text.toString()) - 25
+                result_want_to_walk.text = count_2.toString()
+                val editor2 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                editor2.putString("Walk", result_want_to_walk.text.toString())
+                editor2.commit()
+
+                if (result_health.text == "0" || result_mood.text == "0" ||
+                    result_disease.text == "0" || result_want_to_walk.text== "0"
+                ) {
+
+                  // System.exit(0)
+                    val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                    editor.putBoolean("NameOfThingToSave", true)
+                    editor.commit()
+                    text_text.text = "Питомец скончался"
+                    createNotificationChannel()
+                    sendNotificationDeath()
+                    mTimeLeftInMillis = 0
+                    mTimerRunning = true
+                    //mCountDownTimer?.cancel()
+                    onStop()
+                   // finish()
+                    val refreshActivity = intent
+                    finish()
+                    startActivity(refreshActivity)
+                    return
+
+                } else {
+
+                    createNotificationChannel()
+                    sendNotificationWalk()
+                    mTimeLeftInMillis = 30000
+                    updateCountDownText()
+                    startTimerWalk()
+                }
+            }
+
+            }
+        }.start()
+
+    }
+
+    private fun intentOut() {
+        val randomIntent = Intent(this, NavigationMenuActivity::class.java)
+        startActivity(randomIntent)
+    }
+
+    private fun startTimerFood() {
+        if(btn_tgl.isChecked()){
+            mTimeLeftInMillis=0
+            mTimerRunning = true
+            return
+        }
+
+        mTimeLeftInMillis= 20000
+        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis
+        mCountDownTimer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+
+                if (result_health.text == "0" || result_mood.text == "0" ||
+                    result_disease.text == "0" || result_want_to_walk.text== "0"
+                ) {
+
+                    //System.exit(0)
+
+                    val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                    editor.putBoolean("NameOfThingToSave", true)
+                    editor.commit()
+                    text_text.text = "Питомец скончался"
+                    createNotificationChannel()
+                    sendNotificationDeath()
+                    mTimeLeftInMillis = 0
+                    // mTimerRunning = true
+                    onStop()
+                    //finish()
+                    val refreshActivity = intent
+                    finish()
+                    startActivity(refreshActivity)
+                    return
+
+                }
+                if(btn_tgl.isChecked()){
+                    mTimeLeftInMillis=0
+                    mTimerRunning = true
+                    return
+                }
+                mTimeLeftInMillis = millisUntilFinished
+                updateCountDownText()
+            }
+
+            override fun onFinish() {
+
+                if(btn_tgl.isChecked()){
+                    mTimeLeftInMillis=0
+                    mTimerRunning = true
+                    return
+                }
+                else {
+                    mTimerRunning = false
+                    var count_2 = Integer.parseInt(result_health.text.toString()) - 25
+                    result_health.text = count_2.toString()
+                    val editor2 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                    editor2.putString("Health", result_health.text.toString())
+                    editor2.commit()
+
+
+                    if (result_health.text == "0" || result_mood.text == "0" ||
+                        result_disease.text == "0" || result_want_to_walk.text== "0"
+                    ) {
+
+
+                        //System.exit(0)
+                        val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                        editor.putBoolean("NameOfThingToSave", true)
+                        editor.commit()
+                        text_text.text = "Питомец скончался"
+                        createNotificationChannel()
+                        sendNotificationDeath()
+                        mTimeLeftInMillis = 0
+                        mTimerRunning = true
+                        //mCountDownTimer?.cancel()
+                        onStop()
+                      //  finish()
+                       val refreshActivity = intent
+                        finish()
+                        startActivity(refreshActivity)
+                        return
+
+                    } else {
+
+
+                        createNotificationChannel()
+                        sendNotificationFood()
+                        mTimeLeftInMillis = 20000
+                        updateCountDownText()
+                        startTimerFood()
+                    }
+
+                }
+            }
+
+        }.start()
+
+
+    }
+
+    private fun startTimerDoctor() {
+        if(btn_tgl.isChecked()){
+            mTimeLeftInMillis=0
+            mTimerRunning = true
+            return
+        }
+        mTimeLeftInMillis= 50000
+        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis
+        mCountDownTimer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if(btn_tgl.isChecked()){
+                    mTimeLeftInMillis=0
+                    mTimerRunning = true
+                    return
+                }
+                mTimeLeftInMillis = millisUntilFinished
+                updateCountDownText()
+            }
+
+            override fun onFinish() {
+                if(btn_tgl.isChecked()) {
+
+                    if (result_health.text == "0" || result_mood.text == "0" ||
+                        result_disease.text == "0" || result_want_to_walk.text== "0"
+                    ) {
+
+                        //System.exit(0)
+
+                        val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                        editor.putBoolean("NameOfThingToSave", true)
+                        editor.commit()
+                        text_text.text = "Питомец скончался"
+                        createNotificationChannel()
+                        sendNotificationDeath()
+                        mTimeLeftInMillis = 0
+                        // mTimerRunning = true
+                        onStop()
+                        //finish()
+                        val refreshActivity = intent
+                        finish()
+                        startActivity(refreshActivity)
+                        return
+
+                    }
+                    mTimeLeftInMillis = 0
+                    mTimerRunning = true
+                    return
+                }
+                else
+                {
+                mTimerRunning = false
+                var count = Integer.parseInt(result_disease.text.toString()) - 25
+                result_disease.text = count.toString()
+                val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                editor.putString("Disease", result_disease.text.toString())
+                editor.commit()
+
+
+
+                if (
+                    result_health.text == "0" || result_mood.text == "0" ||
+                    result_disease.text == "0" || result_want_to_walk.text== "0"
+                ) {
+
+                    //System.exit(0)
+                    val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                    editor.putBoolean("NameOfThingToSave", true)
+                    editor.commit()
+                    text_text.text = "Питомец скончался"
+                    createNotificationChannel()
+                    sendNotificationDeath()
+                    mTimeLeftInMillis = 0
+                    mTimerRunning = true
+                    //mCountDownTimer?.cancel()
+                    onStop()
+                   // finish()
+                 val refreshActivity = intent
+                    finish()
+                    startActivity(refreshActivity)
+                    return
+
+                }
+                else
+                {
+                    createNotificationChannel()
+                    sendNotificationDoctor()
+                    mTimeLeftInMillis = 50000
+                    updateCountDownText()
+                    startTimerDoctor()
+                }
+            }
+
+            }
+        }.start()
+
+    }
+
+    private fun startTimerMood() {
+
+        if(btn_tgl.isChecked()){
+            mTimeLeftInMillis=0
+            mTimerRunning = true
+            return
+        }
+        mTimeLeftInMillis= 40000
+        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis
+        mCountDownTimer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                if(btn_tgl.isChecked()){
+                    if (result_health.text == "0" || result_mood.text == "0" ||
+                        result_disease.text == "0" || result_want_to_walk.text== "0"
+                    ) {
+
+                        //System.exit(0)
+
+                        val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                        editor.putBoolean("NameOfThingToSave", true)
+                        editor.commit()
+                        text_text.text = "Питомец скончался"
+                        createNotificationChannel()
+                        sendNotificationDeath()
+                        mTimeLeftInMillis = 0
+                        // mTimerRunning = true
+                        onStop()
+                        //finish()
+                        val refreshActivity = intent
+                        finish()
+                        startActivity(refreshActivity)
+                        return
+
+                    }
+                    mTimeLeftInMillis=0
+                    mTimerRunning = true
+                    return
+                }
+                mTimeLeftInMillis = millisUntilFinished
+                updateCountDownText()
+
+            }
+
+            override fun onFinish() {
+
+                if(btn_tgl.isChecked()){
+                    mTimeLeftInMillis=0
+                    mTimerRunning = true
+                    return
+                }else {
+                    mTimerRunning = false
+                    var count = Integer.parseInt(result_mood.text.toString()) - 25
+                    result_mood.text = count.toString()
+                    val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                    editor.putString("Enjoy", result_mood.text.toString())
+                    editor.commit()
+                    if (result_health.text == "0" || result_mood.text == "0" ||
+                        result_disease.text == "0" || result_want_to_walk.text== "0"
+                    ) {
+
+                        //System.exit(0)
+
+                        val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                        editor.putBoolean("NameOfThingToSave", true)
+                        editor.commit()
+                        text_text.text = "Питомец скончался"
+                        createNotificationChannel()
+                        sendNotificationDeath()
+                        mTimeLeftInMillis = 0
+                       // mTimerRunning = true
+                        onStop()
+                       // finish()
+                        val refreshActivity = intent
+                        finish()
+                        startActivity(refreshActivity)
+                        return
+
+                    } else {
+                        createNotificationChannel()
+                        sendNotificationMood()
+                        mTimeLeftInMillis = 40000
+                        updateCountDownText()
+                        startTimerMood()
+                    }
+                }
+
+            }
+        }.start()
+
+    }
+
+ override fun onStop() {
+        super.onStop()
+        /*val prefs: SharedPreferences = getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putLong("millisLeft", mTimeLeftInMillis)
+        editor.putBoolean("timerRunning", mTimerRunning)
+        editor.putLong("endTime", mEndTime)
+        editor.apply()*/
+        if (mCountDownTimer != null) {
+            mCountDownTimer!!.cancel()
+        }
+    }
+    private fun updateCountDownText() {
+        val minutes = (mTimeLeftInMillis / 1000).toInt() / 60
+        val seconds = (mTimeLeftInMillis / 1000).toInt() % 60
+        val timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
+        mTextViewCountDown!!.text = timeLeftFormatted
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        mTimeLeftInMillis = prefs.getLong("millisLeft", Companion.START_TIME_IN_MILLIS)
+        mTimerRunning = prefs.getBoolean("timerRunning", false)
+
+        if (mTimerRunning) {
+            mEndTime = prefs.getLong("endTime", 0)
+            mTimeLeftInMillis = mEndTime - System.currentTimeMillis()
+            if (mTimeLeftInMillis < 0) {
+                mTimeLeftInMillis = 0
+                mTimerRunning = true
+                updateCountDownText()
+
+
+            }else {
+                startTimerFood()
+                startTimerMood()
+                startTimerDoctor()
+                startTimerWalk()
+            }
+        }
+    }
+
+    companion object {
+        private const val START_TIME_IN_MILLIS: Long = 10000
+
+    }
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val title = "Notification Title"
+            val descriptionText = "Notification Description"
+            val importance =NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, title, importance).apply {
+
+                description=descriptionText
+            }
+            val notificationManager:NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
+    private fun sendNotificationFood(){
+
+
+
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.dog)
+            .setContentTitle("Симулятор Питомца")
+            .setContentText("Покорми меня")
+            .setLargeIcon(bitmapLargeIcon)
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this))
+        {
+            notify(notificationID, builder.build())
+        }
+        notificationID+=1
+    }
+
+
+    private fun sendNotificationMood(){
+        /*val intent =Intent(this, Simulator::class.java).apply {
+            flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }*/
+
+
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.dog)
+            .setContentTitle("Симулятор Питомца")
+            .setContentText("Мне грустно! Погладь меня")
+            .setLargeIcon(bitmapLargeIcon)
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this))
+        {
+            notify(notificationID, builder.build())
+        }
+        notificationID+=1
+    }
+
+    private fun sendNotificationDoctor(){
+        /*val intent =Intent(this, Simulator::class.java).apply {
+            flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }*/
+
+
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.dog)
+            .setContentTitle("Симулятор Питомца")
+            .setContentText("Мне что-то нехорошо. Возможно, я заболел")
+            .setLargeIcon(bitmapLargeIcon)
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this))
+        {
+            notify(notificationID, builder.build())
+        }
+        notificationID+=1
+    }
+
+    private fun sendNotificationWalk(){
+        /*val intent =Intent(this, Simulator::class.java).apply {
+            flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }*/
+
+
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.dog)
+            .setContentTitle("Симулятор Питомца")
+            .setContentText("Я хочу гулять!")
+            .setLargeIcon(bitmapLargeIcon)
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this))
+        {
+            notify(notificationID, builder.build())
+        }
+        notificationID+=1
+    }
+
+
+    private fun sendNotificationDeath(){
+        /*val intent =Intent(this, Simulator::class.java).apply {
+            flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }*/
+
+
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+
+
+        val builder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.dog)
+            .setContentTitle("Симулятор Питомца")
+            .setContentText("Из-за плохого ухода Ваш питомец погиб!")
+            .setLargeIcon(bitmapLargeIcon)
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this))
+        {
+            notify(notificationID, builder.build())
+        }
+    }
+
+
 }
 
 
