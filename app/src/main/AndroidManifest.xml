@@ -9,15 +9,144 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Anketa.AnketaHealthActivity"></activity>
-        <activity android:name=".Anketa.EndAnketaCharacterActivity" />
-        <activity android:name=".Anketa.MiddleAnketaCharacterActivity" />
-        <activity android:name=".Anketa.StartAnketaMainInfoActivity" />
+        <activity android:name=".course.PayCourses.Paid2Activity" android:label="Социализация в доме, машине, парке"
+        android:parentActivityName=".course.PayCourses.PaidActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".course.PayCourses.PaidActivity" />
+        </activity>
+
+        <activity android:name=".course.PayCourses.Paid1Activity" android:label="Кликер-доессировка"
+            android:parentActivityName=".course.PayCourses.PaidActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".course.PayCourses.PaidActivity" />
+        </activity>
+
+        <activity android:name=".course.PayCourses.PaidActivity" android:label="Платные курсы"
+            android:parentActivityName=".course.CoursesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".course.CoursesActivity" />
+        </activity>
+
+        <activity android:name=".course.FreeCourses.Free4Activity" android:label="Лежать! Рядом! Нельзя!"
+            android:parentActivityName=".course.FreeCourses.FreeCourseMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".course.FreeCourses.FreeCourseMenu" />
+        </activity>
+
+        <activity android:name=".course.FreeCourses.Free3Activity" android:label="Ко мне! Стоять! Сидеть!"
+            android:parentActivityName=".course.FreeCourses.FreeCourseMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".course.FreeCourses.FreeCourseMenu" />
+        </activity>
+        <activity android:name=".course.FreeCourses.Free2Activity" android:label="Туалет, ошейник, поводок"
+            android:parentActivityName=".course.FreeCourses.FreeCourseMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".course.FreeCourses.FreeCourseMenu" />
+        </activity>
+        <activity android:name=".course.FreeCourses.Free1Activity" android:label="Общая информация"
+            android:parentActivityName=".course.FreeCourses.FreeCourseMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".course.FreeCourses.FreeCourseMenu" />
+        </activity>
+
+        <activity android:name=".course.FreeCourses.FreeCourseMenu" android:label="Бесплатные курсы"
+            android:parentActivityName=".course.CoursesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".course.CoursesActivity" />
+        </activity>
+        <activity android:name=".course.CoursesActivity" android:label="Курсы"
+            android:parentActivityName=".NavigationMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NavigationMenuActivity" />
+        </activity>
+        <activity
+            android:name=".ToDoList.ToDoActivity"
+            android:label="TO DO лист"
+            android:parentActivityName=".calendarActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".calendarActivity" />
+        </activity>
+        <activity
+            android:name=".calendarActivity"
+            android:label="Календарь и TO DO лист"
+            android:parentActivityName=".NavigationMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NavigationMenuActivity" />
+        </activity>
+        <activity
+            android:name=".UhodInfo.Minus"
+            android:label="Минусы породы"
+            android:parentActivityName=".UhodInfo.MenuForInform">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UhodInfo.MenuForInform" />
+        </activity>
+        <activity
+            android:name=".UhodInfo.Plus"
+            android:label="Плюсы породы"
+            android:parentActivityName=".UhodInfo.MenuForInform">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UhodInfo.MenuForInform" />
+        </activity>
+        <activity
+            android:name=".UhodInfo.Info"
+            android:label="Общая информация"
+            android:parentActivityName=".UhodInfo.MenuForInform">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UhodInfo.MenuForInform" />
+        </activity>
+        <activity
+            android:name=".UhodInfo.MenuForInform"
+            android:label="Полезная информация"
+            android:parentActivityName=".NavigationMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NavigationMenuActivity" />
+        </activity>
+        <activity
+            android:name=".InfoAnimal.InfoAnimalActivity"
+            android:label="Анкета питомца"
+            android:parentActivityName=".NavigationMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NavigationMenuActivity" />
+        </activity>
+        <activity
+            android:name=".Anketa.AnketaHealthActivity"
+            android:label="Анкета" />
+        <activity
+            android:name=".Anketa.EndAnketaCharacterActivity"
+            android:label="Анкета" />
+        <activity
+            android:name=".Anketa.MiddleAnketaCharacterActivity"
+            android:label="Анкета" />
+        <activity
+            android:name=".Anketa.StartAnketaMainInfoActivity"
+            android:label="Анкета" />
 
         <receiver android:name=".ReminderBroadcast" />
 
-        <activity android:name=".infoAnimalActivity" />
-        <activity android:name=".Simulator" />
+        <activity
+            android:name=".Simulator"
+            android:label="Симулятор питомца"
+            android:parentActivityName=".NavigationMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NavigationMenuActivity" />
+        </activity>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -27,7 +156,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FormActivity" />
         <activity
             android:name=".NavigationMenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -7,8 +7,7 @@ import android.view.View
 import android.widget.*
 import kodeA.doguide.NavigationMenuActivity
 import kodeA.doguide.R
-import kotlinx.android.synthetic.main.activity_form.*
-import kotlinx.android.synthetic.main.activity_form.spinner
+
 import kotlinx.android.synthetic.main.activity_middle_anketa_character.*
 
 class MiddleAnketaCharacterActivity : AppCompatActivity() {
@@ -16,8 +15,20 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_middle_anketa_character)
 
-        val sharedPrefs = getSharedPreferences("kodeA.doguide", MODE_PRIVATE)
+       // val sharedPrefs = getSharedPreferences("kodeA.doguide", MODE_PRIVATE)
 
+        val intent = getIntent()
+        var Age = intent.getStringExtra("Age")
+        var Live = intent.getStringExtra("Live")
+        var Nickname= intent.getStringExtra("Nickname")
+        var Breed = intent.getStringExtra("Breed")
+        var Zabol = intent.getStringExtra("Zabol")
+        var Food = intent.getStringExtra("Food")
+        var Street = intent.getStringExtra("Street")
+        var Nasil = intent.getStringExtra("Nasil")
+
+       // val nickname = findViewById<TextView>(R.id.nic)
+        //nickname.text = Nickname
 
         val listAgress = arrayOf("Не выбрано","Да", "Нет")
         val arrayAdapterAgress =
@@ -68,7 +79,7 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
             }
         }
 
-        val listSluch = arrayOf("Не выбрано","Абсолютно в любых ситуациях","Агрессия не проявляется", "Когда видит пьяных людей", "В случае того, когда видит потенциальную опасность для хозяина", "В случае того, если видит потенциальную опасность для себя", "Когда видит собаку меньше себя", "Когда видит собаку больше себя", "Когда видит другое животное (не собаку)", "Проявляет агрессию на прохожих", "Когда слышит громкие звуки, яркие цвета", "При попытке воспитательной деятельности или наказания (злой голос, отказ дать лакомство и т.д.)", "Когда к ней пытается подойти ребенок", "При посещении ветеринара или кинолога, при попытке лечения", "На конкретного человека (людей)", "На конкретный предмет")
+        val listSluch = arrayOf("Не выбрано","Абсолютно в любых ситуациях","Агрессия не проявляется", "Когда видит пьяных людей", "Когда видит потенциальную опасность для хозяина", "Если видит потенциальную опасность для себя", "Когда видит собаку меньше себя", "Когда видит собаку больше себя", "Когда видит другое животное (не собаку)", "Проявляет агрессию на прохожих", "Когда слышит громкие звуки, яркие цвета", "При попытке воспитательной деятельности или наказания", "Когда к ней пытается подойти ребенок", "При посещении ветеринара или кинолога, при попытке лечения", "На конкретного человека (людей)", "На конкретный предмет")
         val arrayAdapterSluch =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listSluch)
 
@@ -91,7 +102,7 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
             }
         }
 
-        val listGame = arrayOf("Не выбрано","Абсолютно в любых ситуациях","Агрессия не проявляется", "Когда видит пьяных людей", "В случае того, когда видит потенциальную опасность для хозяина", "В случае того, если видит потенциальную опасность для себя", "Когда видит собаку меньше себя", "Когда видит собаку больше себя", "Когда видит другое животное (не собаку)", "Проявляет агрессию на прохожих", "Когда слышит громкие звуки, яркие цвета", "При попытке воспитательной деятельности или наказания (злой голос, отказ дать лакомство и т.д.)", "Когда к ней пытается подойти ребенок", "При посещении ветеринара или кинолога, при попытке лечения", "На конкретного человека (людей)", "На конкретный предмет")
+        val listGame = arrayOf("Не выбрано","Абсолютно в любых ситуациях","Агрессия не проявляется", "Когда видит пьяных людей", "Когда видит потенциальную опасность для хозяина", "Если видит потенциальную опасность для себя", "Когда видит собаку меньше себя", "Когда видит собаку больше себя", "Когда видит другое животное (не собаку)", "Проявляет агрессию на прохожих", "Когда слышит громкие звуки, яркие цвета", "При попытке воспитательной деятельности или наказания", "Когда к ней пытается подойти ребенок", "При посещении ветеринара или кинолога", "На конкретного человека (людей)", "На конкретный предмет")
         val arrayAdapterGame =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listGame)
 
@@ -115,7 +126,7 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
         }
 
 
-        var SpinnerAgress = findViewById<View>(R.id.spinner_agress) as Spinner
+        /*var SpinnerAgress = findViewById<View>(R.id.spinner_agress) as Spinner
         var Agress = SpinnerAgress.selectedItem.toString()
 
         var SpinnerStorona = findViewById<View>(R.id.spinner_storona) as Spinner
@@ -130,7 +141,7 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
         Agress = sharedPrefs.getString("Agress", Agress).toString()
         Storona = sharedPrefs.getString("Storona", Storona).toString()
         SluchAgress = sharedPrefs.getString("SluchAgress", SluchAgress).toString()
-        Game= sharedPrefs.getString("Game", Game).toString()
+        Game= sharedPrefs.getString("Game", Game).toString()*/
 
         findViewById<Button>(R.id.click).setOnClickListener() {
 
@@ -148,12 +159,11 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
 
 
 
-
             when {
                 Agress=="Не выбрано" -> {
                     Toast.makeText(this, "Пожалуйста, ответьте на вопрос №1", Toast.LENGTH_SHORT).show()
                 }
-                Storona=="Не выбрано" -> {
+                Storona=="Не выбрано"  -> {
                     Toast.makeText(this, "Пожалуйста, ответьте на вопрос №2", Toast.LENGTH_SHORT).show()
                 }
                 SluchAgress=="Не выбрано" -> {
@@ -165,7 +175,7 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
                 else -> {
 
 
-                    val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                   /* val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                     editor.putString("Agress", Agress)
                     editor.commit()
 
@@ -179,9 +189,21 @@ class MiddleAnketaCharacterActivity : AppCompatActivity() {
 
                     val editor3 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                     editor3.putString("Game", Game)
-                    editor3.commit()
+                    editor3.commit()*/
 
                     val intent = Intent(this,EndAnketaCharacterActivity::class.java)
+                    intent.putExtra("Zabol", Zabol)
+                    intent.putExtra("Food", Food)
+                    intent.putExtra("Street", Street)
+                    intent.putExtra("Nasil", Nasil)
+                    intent.putExtra("Age", Age)
+                    intent.putExtra("Live", Live)
+                    intent.putExtra("Breed", Breed)
+                    intent.putExtra("Nickname", Nickname)
+                    intent.putExtra("Agress", Agress)
+                    intent.putExtra("Storona", Storona)
+                    intent.putExtra("SluchAgress", SluchAgress)
+                    intent.putExtra("Game", Game)
                     startActivity(intent)
 
                 }

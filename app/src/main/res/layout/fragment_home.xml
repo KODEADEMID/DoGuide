@@ -1,23 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80fbdd93"
-    tools:context=".Home">
+    tools:context=".InfoAnimal.InfoAnimalActivity"
+    android:layout_marginTop="55dp"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home"
 
+    android:orientation="vertical"
+    android:background="#fff4c7"
+    android:layout_marginBottom="20dp">
 
-
+    <TextView
+        android:id="@+id/title_home"
+        android:text="Здравствуйте!"
+        android:textColor="@android:color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 
 
     <TextView
+        android:id="@+id/intro_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Главная"
-        android:textSize="40dp"
-        android:textStyle="bold"
+        android:layout_below="@+id/title_home"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:paddingLeft="5dp"
+        android:text="DoGuide станет лучшим помощником для дрессировки вашей собаки. Все курсы подбираются с учетом породы, характера и физиологических особенностей. Все курсы проработаны и согласованы с ветеринарами и кинологами"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:background="#ffe1a0"
+        android:layout_marginTop="10dp"
+        android:id="@+id/anketa_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:text="Анкета:"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        tools:ignore="RtlCompat" />
+
+    <RelativeLayout
+        android:layout_width="130dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        >
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:id="@+id/photo_anketa"
+        android:layout_width="120dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center"
+        android:src="@drawable/anketa"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+
+        />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/anketa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingTop="5dp"
+        android:text="Здесь вы сможете посмотреть заполненную анкету о вашем питомце и изменить данные"
+        android:background="@android:color/white"
         android:gravity="center"
-        android:layout_centerInParent="true"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/polez_title"
+        android:background="#ffe1a0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+       android:textAlignment="center"
+        android:text="Полезная информация:"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="#ffffff"
+        >
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:id="@+id/photo_polez_info"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center"
+        android:src="@drawable/polezinfa"
+        android:layout_centerHorizontal="true"
+        />
+    </RelativeLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/polez_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="Вы можете узнать больше об уходе, кормлении, особенностях породы и о многом другом"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+    <TextView
+        android:background="#ffe1a0"
+        android:id="@+id/calend_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:text="Календарь:"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="195dp"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        >
+
+    <ImageView
+        android:id="@+id/photo_calend_"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/calendar"
+        android:layout_centerHorizontal="true"
         />
 
-</RelativeLayout>
+    </RelativeLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:text="Запланируйте что-нибудь и запишите это. Для этого вам поможет календарь и To Do лист"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:background="#ffe1a0"
+        android:id="@+id/training_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:text="Дрессировка:"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        >
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:id="@+id/photo_training"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:src="@drawable/courses"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        />
+    </RelativeLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/training"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="Выберете курс дрессировки для вашего питомца. У нас есть как платные, так и бесплатные."
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:background="#ffe1a0"
+        android:layout_marginTop="10dp"
+        android:id="@+id/simul_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:text="Симулятор питомца:"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        >
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:id="@+id/photo_simul"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center"
+        android:src="@drawable/simul"
+        android:layout_centerHorizontal="true"
+        />
+    </RelativeLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/simul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="Перед тем, как ухаживать за реальным питомцем, вы можете поиграть в симулятор питомца. Кормите, гуляйте, проводите с ним время. Чтобы вы не забыли о своем питомце, вы будете получать уведомления. Для красоты встроена GIF-анимация"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        android:layout_marginBottom="40dp"/>
+</LinearLayout>
+    </ScrollView>

@@ -1,25 +1,21 @@
 package kodeA.doguide
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.graphics.createBitmap
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_simulator.*
-import java.security.acl.NotOwnerException
+import pl.droidsonroids.gif.GifDrawable
 import java.util.*
-import kotlin.system.exitProcess
 
 
 class Simulator : AppCompatActivity()  {
@@ -38,6 +34,9 @@ class Simulator : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simulator)
+
+        val gifNormDog = GifDrawable(resources, R.drawable.norm)
+        gif.setImageDrawable(gifNormDog)
 
 
         val toggle: ToggleButton = findViewById(R.id.btn_tgl)
@@ -102,6 +101,18 @@ class Simulator : AppCompatActivity()  {
                 } else {
                     var count = Integer.parseInt(result_health.text.toString()) + 25
                     result_health.text = count.toString()
+
+                    val gifFoodDog = GifDrawable(resources, R.drawable.foodog)
+                    gif.setImageDrawable(gifFoodDog)
+                    gifFoodDog.loopCount = 3
+                    //gif.setImageDrawable(gifNormDog)
+                    gifFoodDog.addAnimationListener {
+                        if (it == 2) {
+                            gif.setImageDrawable(gifNormDog)
+                        }
+                    }
+
+
                     val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                     editor.putString("Health", result_health.text.toString())
                     editor.commit()
@@ -230,7 +241,7 @@ class Simulator : AppCompatActivity()  {
                     return
                 }
                 mTimeLeftInMillis = millisUntilFinished
-                updateCountDownText()
+                //updateCountDownText()
             }
 
             override fun onFinish() {
@@ -273,7 +284,7 @@ class Simulator : AppCompatActivity()  {
                     createNotificationChannel()
                     sendNotificationWalk()
                     mTimeLeftInMillis = 30000
-                    updateCountDownText()
+                    //updateCountDownText()
                     startTimerWalk()
                 }
             }
@@ -295,7 +306,7 @@ class Simulator : AppCompatActivity()  {
             return
         }
 
-        mTimeLeftInMillis= 20000
+        mTimeLeftInMillis= 10000
         mEndTime = System.currentTimeMillis() + mTimeLeftInMillis
         mCountDownTimer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -329,12 +340,35 @@ class Simulator : AppCompatActivity()  {
                     return
                 }
                 mTimeLeftInMillis = millisUntilFinished
-                updateCountDownText()
+               // updateCountDownText()
             }
 
             override fun onFinish() {
 
                 if(btn_tgl.isChecked()){
+
+                    if (result_health.text == "0" || result_mood.text == "0" ||
+                        result_disease.text == "0" || result_want_to_walk.text== "0"
+                    ) {
+
+
+                        //System.exit(0)
+                        val editor = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
+                        editor.putBoolean("NameOfThingToSave", true)
+                        editor.commit()
+                        text_text.text = "Питомец скончался"
+                        createNotificationChannel()
+                        sendNotificationDeath()
+                        mTimeLeftInMillis = 0
+                        mTimerRunning = true
+                        //mCountDownTimer?.cancel()
+                        onStop()
+                        //  finish()
+                        val refreshActivity = intent
+                        finish()
+                        startActivity(refreshActivity)
+                        return
+                    }
                     mTimeLeftInMillis=0
                     mTimerRunning = true
                     return
@@ -343,6 +377,10 @@ class Simulator : AppCompatActivity()  {
                     mTimerRunning = false
                     var count_2 = Integer.parseInt(result_health.text.toString()) - 25
                     result_health.text = count_2.toString()
+
+                    val gifFoodDog = GifDrawable(resources, R.drawable.wantfood)
+                    gif.setImageDrawable(gifFoodDog)
+
                     val editor2 = getSharedPreferences("kodeA.doguide", MODE_PRIVATE).edit()
                     editor2.putString("Health", result_health.text.toString())
                     editor2.commit()
@@ -375,8 +413,8 @@ class Simulator : AppCompatActivity()  {
 
                         createNotificationChannel()
                         sendNotificationFood()
-                        mTimeLeftInMillis = 20000
-                        updateCountDownText()
+                        mTimeLeftInMillis = 10000
+                       // updateCountDownText()
                         startTimerFood()
                     }
 
@@ -387,6 +425,11 @@ class Simulator : AppCompatActivity()  {
 
 
     }
+
+    /*private fun loadGif(foodog: Int) {
+        Glade.with()
+
+    }*/
 
     private fun startTimerDoctor() {
         if(btn_tgl.isChecked()){
@@ -404,7 +447,7 @@ class Simulator : AppCompatActivity()  {
                     return
                 }
                 mTimeLeftInMillis = millisUntilFinished
-                updateCountDownText()
+                //updateCountDownText()
             }
 
             override fun onFinish() {
@@ -475,7 +518,7 @@ class Simulator : AppCompatActivity()  {
                     createNotificationChannel()
                     sendNotificationDoctor()
                     mTimeLeftInMillis = 50000
-                    updateCountDownText()
+                   // updateCountDownText()
                     startTimerDoctor()
                 }
             }
@@ -524,7 +567,7 @@ class Simulator : AppCompatActivity()  {
                     return
                 }
                 mTimeLeftInMillis = millisUntilFinished
-                updateCountDownText()
+                //updateCountDownText()
 
             }
 
@@ -566,7 +609,7 @@ class Simulator : AppCompatActivity()  {
                         createNotificationChannel()
                         sendNotificationMood()
                         mTimeLeftInMillis = 40000
-                        updateCountDownText()
+                       // updateCountDownText()
                         startTimerMood()
                     }
                 }
@@ -607,7 +650,7 @@ class Simulator : AppCompatActivity()  {
             if (mTimeLeftInMillis < 0) {
                 mTimeLeftInMillis = 0
                 mTimerRunning = true
-                updateCountDownText()
+               // updateCountDownText()
 
 
             }else {
@@ -642,7 +685,10 @@ class Simulator : AppCompatActivity()  {
 
 
         val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
-        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.drawable.dog
+        )
 
 
         val builder = NotificationCompat.Builder(this, channelId)
@@ -668,7 +714,10 @@ class Simulator : AppCompatActivity()  {
 
 
         val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
-        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.drawable.dog
+        )
 
 
         val builder = NotificationCompat.Builder(this, channelId)
@@ -693,7 +742,10 @@ class Simulator : AppCompatActivity()  {
 
 
         val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
-        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.drawable.dog
+        )
 
 
         val builder = NotificationCompat.Builder(this, channelId)
@@ -718,7 +770,10 @@ class Simulator : AppCompatActivity()  {
 
 
         val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
-        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.drawable.dog
+        )
 
 
         val builder = NotificationCompat.Builder(this, channelId)
@@ -744,7 +799,10 @@ class Simulator : AppCompatActivity()  {
 
 
         val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
-        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.dog)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(
+            applicationContext.resources,
+            R.drawable.dog
+        )
 
 
         val builder = NotificationCompat.Builder(this, channelId)
@@ -760,6 +818,18 @@ class Simulator : AppCompatActivity()  {
             notify(notificationID, builder.build())
         }
     }
+
+   /* override fun onOptionsItemSelected(item: MenuItem):Boolean{
+        when(item.itemId){
+            android.R.id.home ->{
+                super.finish()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+
+    }*/
 
 
 }

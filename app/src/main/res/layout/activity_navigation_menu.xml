@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
     android:fitsSystemWindows="true"
-    android:background="#80fbdd93"
+
     tools:context=".NavigationMenuActivity">
 
     <include android:layout_height="match_parent"

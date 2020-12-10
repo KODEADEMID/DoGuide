@@ -16,8 +16,23 @@ class EndAnketaCharacterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_end_anketa_character)
 
-        val sharedPrefs = getSharedPreferences("kodeA", MODE_PRIVATE)
+       // val sharedPrefs = getSharedPreferences("kodeA", MODE_PRIVATE)
 
+        val intent = getIntent()
+        var Age = intent.getStringExtra("Age")
+        var Live = intent.getStringExtra("Live")
+        var Nickname= intent.getStringExtra("Nickname")
+        var Breed = intent.getStringExtra("Breed")
+        var Zabol = intent.getStringExtra("Zabol")
+        var Food = intent.getStringExtra("Food")
+        var Street = intent.getStringExtra("Street")
+        var Nasil = intent.getStringExtra("Nasil")
+        var Agress = intent.getStringExtra("Agress")
+        var Storona = intent.getStringExtra("Storona")
+        var SluchAgress = intent.getStringExtra("SluchAgress")
+        var Game = intent.getStringExtra("Game")
+
+        var flag = "0"
 
 
         val listLubop = arrayOf("Не выбрано", "Да", "Нет", "Затрудняюсь ответить")
@@ -45,7 +60,7 @@ class EndAnketaCharacterActivity : AppCompatActivity() {
 
 
 
-        val listSpeakDog = arrayOf("Не выбрано","Да", "Нет", "Зависит от поведения и внешнего облика (больше, меньше, такого же размера) другой собаки")
+        val listSpeakDog = arrayOf("Не выбрано","Да", "Нет", "Зависит от поведения, облика другой собаки")
         val arrayAdapterSpeakDog =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listSpeakDog)
 
@@ -70,7 +85,7 @@ class EndAnketaCharacterActivity : AppCompatActivity() {
 
 
 
-        val listSpeakPeople = arrayOf("Не выбрано", "Да", "Нет", "Зависит от того, какой человек и с каким настроем подходит к моей собаке")
+        val listSpeakPeople = arrayOf("Не выбрано", "Да", "Нет", "Зависит от человека и его настроения")
         val arrayAdapterSpeakPeople=
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listSpeakPeople)
 
@@ -118,7 +133,7 @@ class EndAnketaCharacterActivity : AppCompatActivity() {
             }
         }
 
-        var SpinnerLubop = findViewById<View>(R.id.spinner_lubop) as Spinner
+      /*  var SpinnerLubop = findViewById<View>(R.id.spinner_lubop) as Spinner
         var Lubop = SpinnerLubop.selectedItem.toString();
 
         var SpinnerSpeakDog = findViewById<View>(R.id.spinner_speak_dog) as Spinner
@@ -133,7 +148,7 @@ class EndAnketaCharacterActivity : AppCompatActivity() {
         Lubop = sharedPrefs.getString("Lubop", Lubop).toString()
         SpeakDog = sharedPrefs.getString("SpeakDog", SpeakDog).toString()
         SpeakPeople = sharedPrefs.getString("SpeakPeople", SpeakPeople).toString()
-        DopInfo= sharedPrefs.getString("DopInfo",  DopInfo).toString()
+        DopInfo= sharedPrefs.getString("DopInfo",  DopInfo).toString()*/
 
 
         findViewById<Button>(R.id.click).setOnClickListener() {
@@ -164,7 +179,7 @@ class EndAnketaCharacterActivity : AppCompatActivity() {
                 }
                 else -> {
 
-                    val editor = getSharedPreferences("kodeA", MODE_PRIVATE).edit()
+                  /*  val editor = getSharedPreferences("kodeA", MODE_PRIVATE).edit()
                     editor.putString("Lubop", Lubop)
                     editor.commit()
 
@@ -178,9 +193,28 @@ class EndAnketaCharacterActivity : AppCompatActivity() {
 
                     val editor3 = getSharedPreferences("kodeA", MODE_PRIVATE).edit()
                     editor3.putString("DopInfo",  DopInfo)
-                    editor3.commit()
+                    editor3.commit()*/
+
+                    flag = "1"
 
                     val intent = Intent(this, NavigationMenuActivity::class.java)
+                    intent.putExtra("Zabol", Zabol)
+                    intent.putExtra("Food", Food)
+                    intent.putExtra("Street", Street)
+                    intent.putExtra("Nasil", Nasil)
+                    intent.putExtra("Age", Age)
+                    intent.putExtra("Live", Live)
+                    intent.putExtra("Breed", Breed)
+                    intent.putExtra("Nickname", Nickname)
+                    intent.putExtra("Agress", Agress)
+                    intent.putExtra("Storona", Storona)
+                    intent.putExtra("SluchAgress", SluchAgress)
+                    intent.putExtra("Game", Game)
+                    intent.putExtra("Lubop", Lubop)
+                    intent.putExtra("SpeakDog", SpeakDog)
+                    intent.putExtra("SpeakPeople", SpeakPeople)
+                    intent.putExtra("DopInfo",  DopInfo)
+                    intent.putExtra("Flag", flag)
                     startActivity(intent)
 
 

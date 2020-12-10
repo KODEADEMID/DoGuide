@@ -3,18 +3,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:background="#80fbdd93"
+    android:background="#fff4c7"
     android:padding="15dp">
 
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/web_hi_res_512"
         android:layout_marginTop="22dp"/>
     <TextView
+        android:id="@+id/nickname"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Кличка"
+
     android:textColor="@android:color/black"
     android:textStyle="bold"
     android:textSize="16sp"
@@ -22,9 +23,10 @@
     />
 
     <TextView
+        android:id="@+id/breed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Порода"
+
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"

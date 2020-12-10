@@ -8,9 +8,11 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:paddingRight="20dp"
+    android:background="#fff4c7">
 
     <TextView
+        android:fontFamily="@font/citynovalt"
         android:id="@+id/quest_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,118 +21,150 @@
         android:textSize="20dp"
         android:textStyle="italic"
         android:textColor="@android:color/black"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="20dp"/>
 
 
     <TextView
+        android:background="#ffe1a0"
+        android:fontFamily="@font/citynovalt"
         android:id="@+id/question_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/white"
+        android:layout_marginTop="10dp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:text="5. Ваша собака любопытна?"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
-        android:textSize="17dp" />
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question_5"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
+        >
+
 
     <Spinner
         android:id="@+id/spinner_lubop"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/question_2"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="15sp"
         />
+    </RelativeLayout>
 
     <TextView
+        android:background="#ffe1a0"
+        android:fontFamily="@font/citynovalt"
         android:id="@+id/question_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/white"
+        android:layout_marginTop="10dp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:text="6. Общительна ли ваша собака относительно других собак?"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
-        android:textSize="17dp" />
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question_6"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
+        >
+
     <Spinner
         android:id="@+id/spinner_speak_dog"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/question_2"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="23sp"
+        android:textSize="15sp"
         />
+    </RelativeLayout>
 
     <TextView
+        android:background="#ffe1a0"
+        android:fontFamily="@font/citynovalt"
         android:id="@+id/question_7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/white"
+        android:layout_marginTop="10dp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:text="7. Общительна ли ваша собака относительно других людей?"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
-        android:textSize="17dp" />
-
+        android:textSize="20dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question_7"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
+        >
     <Spinner
         android:id="@+id/spinner_speak_people"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/question_2"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="23sp"
+        android:textSize="15sp"
         />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/question_8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/white"
+        android:layout_marginTop="10dp"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:text="8.  Можно ли назвать вашу собаку послушной? Если 'Да', то кого она слушается?"
+        android:text="8. Можно ли назвать вашу собаку послушной? Если 'Да', то кого она слушается?"
         android:textAlignment="textStart"
         android:textColor="@android:color/black"
-        android:textSize="17dp"
-        android:layout_marginBottom="2dp"/>
+        android:textSize="20dp"
+        android:background="#ffe1a0"
+        android:fontFamily="@font/citynovalt"
+        />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/question_8"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
+        >
     <Spinner
         android:id="@+id/spinner_dop_info"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/question_2"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="23sp"
+        android:textSize="15sp"
         />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/click"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
         android:padding="5dp"
         android:text="Сохранить и продолжить"
-        android:textSize="20dp" />
-
+        android:textSize="20dp"
+        android:background="#ffe1a0"
+        android:fontFamily="@font/citynovalt"/>
 
 </LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UhodInfo.Info"
+    android:background="#fff4c7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+
+                android:fontFamily="@font/citynovalt"
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Краткая информация"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginVertical="10dp"
+                tools:srcCompat="@tools:sample/avatars"
+                android:src="@drawable/viewdog1"/>
+
+            <TextView
+                android:background="#ffe1a0"
+                android:fontFamily="@font/citynovalt"
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Название"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:padding="5dp"
+                android:background="@android:color/white"
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Основная информация"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                />
+
+        </LinearLayout>
+
+</ScrollView>

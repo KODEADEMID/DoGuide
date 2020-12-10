@@ -11,12 +11,17 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+        //var flag = "0"
+
 
         val preferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
         val firstTime = preferences.getString("FirstTimeInstall", "No")
 
 
-        if (firstTime == "No") {
+
+
+
+        if (firstTime=="No") {
 
             Handler().postDelayed({
                 startActivity(Intent(this, StartAnketaMainInfoActivity::class.java))
@@ -29,14 +34,21 @@ class SplashScreenActivity : AppCompatActivity() {
 
 
         }
-       // val data = intent.extras!!.getString("FirstTimeInstall")
 
-        if (firstTime == "Yes") {
-            Handler().postDelayed({
+
+
+
+        if (firstTime=="Yes") {
+
+        Handler().postDelayed({
                 startActivity(Intent(this, NavigationMenuActivity::class.java))
                 finish()
-            }, SPLASH_TIME)
-        }
+            }, SPLASH_TIME)}
+
+
+       // val data = intent.extras!!.getString("FirstTimeInstall")
+
+
 
     }
 }

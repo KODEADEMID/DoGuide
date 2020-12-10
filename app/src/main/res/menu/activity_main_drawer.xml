@@ -16,6 +16,12 @@
             android:id="@+id/nav_dop_info"
             android:icon="@drawable/ic_action_info"
             android:title="Полезная информация" />
+
+        <item
+            android:id="@+id/nav_calend"
+            android:icon="@drawable/ic_action_calend"
+            android:title="Календарь" />
+
         <item
             android:id="@+id/nav_training"
             android:icon="@drawable/ic_action_train"
